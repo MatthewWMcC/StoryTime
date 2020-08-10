@@ -1,0 +1,4 @@
+todo for Storytime:
+
+- introduce authentication
+- make server store user data on individual pages
