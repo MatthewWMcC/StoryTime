@@ -28,7 +28,7 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 app.use(cors());
-app.use('/home', userRoute)
+app.use('/home', userRoute);
 
 
 
