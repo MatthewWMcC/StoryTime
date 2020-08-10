@@ -6,7 +6,7 @@ let database = require('./database/db').db;
 
 
 
-const userRoute = require('../server/routes/user_routes');
+const userRoute = require('./routes/user_routes');
 const { support } = require('jquery');
 
 
@@ -37,8 +37,12 @@ const port = process.env.PORT || 4000;
 console.log(process.env.NODE_ENV)
 
 if (process.env.NODE_ENV === 'production') {
+    app.use(express.static(path.join(__dirname, 'src', 'build')));
 
-    app.use(express.static('../build'))
+    app.get('*', (req, res) => {
+        res.sendFile(path.join(__dirname, 'src', 'build', 'index.html'))
+    });
+
 }
 
 
