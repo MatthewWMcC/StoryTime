@@ -34,7 +34,7 @@ app.use('/home', userRoute);
 
 const port = process.env.PORT || 4000;
 
-console.log(process.env.NODE_ENV)
+//console.log(process.env.NODE_ENV)
 
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, 'src', 'build')));
