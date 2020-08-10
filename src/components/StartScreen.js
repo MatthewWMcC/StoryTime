@@ -60,7 +60,7 @@ class StartScreen extends Component {
             email: this.state.LEmail,
             password: this.state.LPassword
         }
-        axios.post('http://localhost:4000/home/login', checkUser)
+        axios.post('/home/login', checkUser)
             .then((res) => {
                 console.log(res.data);
                 if (res.data.errors) {
