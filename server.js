@@ -2,7 +2,7 @@ let express = require('express');
 let mongoose = require('mongoose');
 let cors = require('cors');
 let bodyParser = require('body-parser');
-let database = require('./database/db').db;
+//let database = require('./database/db').db;
 const path = require('path');
 
 require('dotenv').config();
