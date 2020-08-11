@@ -6,7 +6,7 @@ export function sendPost(post) {
         g: Math.random() * 155 + 100,
         b: Math.random() * 155 + 100
     }
-    axios.post('http://localhost:4000/home/public', post)
+    axios.post('http://storytime-matt.herokuapp.com/home/public', post)
         .then(res => {
             console.log(res)
         }).catch(err => {
