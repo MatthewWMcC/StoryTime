@@ -21,7 +21,7 @@ export default class PublicPage extends Component {
         if (this.state.pageId === '') {
             window.location = '/'
         }
-        axios.get(`http://localhost:4000/home/${this.state.pageId}`)
+        axios.get(`http://storytime-matt.herokuapp.com/home/${this.state.pageId}`)
             .then(res => {
                 //console.log(res.data);
                 this.setState({
@@ -31,7 +31,7 @@ export default class PublicPage extends Component {
             }).catch((error) => {
                 console.log(error);
             })
-        axios.get('http://localhost:4000/home/posts')
+        axios.get('http://storytime-matt.herokuapp.com/home/posts')
             .then(res => {
                 this.setState({
                     postLog: res.data.reverse()
@@ -43,7 +43,7 @@ export default class PublicPage extends Component {
 
     removePost(post) {
         console.log(post._id)
-        axios.post(`http://localhost:4000/home/posts/delete/${post._id}`)
+        axios.post(`http://storytime-matt.herokuapp.com/home/posts/delete/${post._id}`)
             .then(res => {
                 console.log(res)
             }).catch(err => {
@@ -65,7 +65,7 @@ export default class PublicPage extends Component {
             post.likes.splice(index, 1)
         }
         console.log(post._id)
-        axios.put(`http://localhost:4000/home/posts/update/likes/${post._id}`, post.likes)
+        axios.put(`http://storytime-matt.herokuapp.com/home/posts/update/likes/${post._id}`, post.likes)
             .then(res => {
                 console.log(res)
             }).catch(err => {

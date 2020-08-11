@@ -39,7 +39,7 @@ class Home extends Component {
     }
     //console.log(moment().format('YYYY-MM-DD hh:mm').toString())
 
-    axios.get(`http://localhost:4000/home/${this.state.pageId}`)
+    axios.get(`http://storytime-matt.herokuapp.com/home/${this.state.pageId}`)
       .then(res => {
         //console.log(res.data);
         this.setState({
@@ -106,7 +106,7 @@ class Home extends Component {
   }
 
   postNewShelf(shelf) {
-    axios.put(`http://localhost:4000/home/change/${this.state.pageId}`, shelf)
+    axios.put(`http://storytime-matt.herokuapp.com/home/change/${this.state.pageId}`, shelf)
       .then(res => {
         console.log(res)
       }).catch(err => {

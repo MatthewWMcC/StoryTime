@@ -31,7 +31,7 @@ class StartScreen extends Component {
             password: this.state.SPassword
 
         }
-        axios.post('http://localhost:4000/home/signup', userData)
+        axios.post('http://storytime-matt.herokuapp.com/home/signup', userData)
             .then((res) => {
                 console.log(res.data);
                 if (res.data.errors) {
@@ -60,7 +60,8 @@ class StartScreen extends Component {
             email: this.state.LEmail,
             password: this.state.LPassword
         }
-        axios.post('/home/login', checkUser)
+
+        axios.post('http://storytime-matt.herokuapp.com/home/login', checkUser)
             .then((res) => {
                 console.log(res.data);
                 if (res.data.errors) {
