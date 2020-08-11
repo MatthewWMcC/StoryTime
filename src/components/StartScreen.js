@@ -89,46 +89,8 @@ class StartScreen extends Component {
                 <div className="container">
                     <br></br>
                     <div className="login_line row">
-                        <div className="col-5">
-                            <h2 className="">Login</h2>
-                            <form onSubmit={this.submitLogin}>
-                                <div className="row my-5">
-                                    <label className="col-4 justify-self-right">Email:</label>
-                                    <br></br>
-                                    <input
-                                        placeholder="..."
-                                        className="col-6"
-                                        value={this.state.LEmail}
-                                        onChange={e => {
-                                            this.setState({
-                                                LEmail: e.target.value
-                                            })
-                                        }}
-                                    ></input>
-                                </div>
-                                <div className="row my-5">
-                                    <label className="col-4 justify-self-right">Password:</label>
-                                    <br></br>
-                                    <input
-                                        placeholder="..."
-                                        className="col-6"
-                                        value={this.state.LPassword}
-                                        onChange={e => {
-                                            this.setState({
-                                                LPassword: e.target.value
-                                            })
-                                        }}
-                                    ></input>
-                                </div>
-                                <div className="row justify-content-center">
-                                    <button className="btn btn-dark" type="submit">
-                                        <span>Login</span>
-                                    </button>
-                                </div>
 
-                            </form>
-                        </div>
-                        <div className="offset-2 col-5">
+                        <div className="offset-0 col-5">
                             <h2 className="text-center">New User</h2>
                             <form onSubmit={(e) => this.submitNew(e)}>
                                 <div className="row my-5">
@@ -178,6 +140,45 @@ class StartScreen extends Component {
                                     </button>
                                 </div>
 
+
+                            </form>
+                        </div>
+                        <div className="offset-2 col-5">
+                            <h2 className="">Login</h2>
+                            <form onSubmit={this.submitLogin}>
+                                <div className="row my-5">
+                                    <label className="col-4 justify-self-right">Email:</label>
+                                    <br></br>
+                                    <input
+                                        placeholder="..."
+                                        className="col-6"
+                                        value={this.state.LEmail}
+                                        onChange={e => {
+                                            this.setState({
+                                                LEmail: e.target.value
+                                            })
+                                        }}
+                                    ></input>
+                                </div>
+                                <div className="row my-5">
+                                    <label className="col-4 justify-self-right">Password:</label>
+                                    <br></br>
+                                    <input
+                                        placeholder="..."
+                                        className="col-6"
+                                        value={this.state.LPassword}
+                                        onChange={e => {
+                                            this.setState({
+                                                LPassword: e.target.value
+                                            })
+                                        }}
+                                    ></input>
+                                </div>
+                                <div className="row justify-content-center">
+                                    <button className="btn btn-dark" type="submit">
+                                        <span>Login</span>
+                                    </button>
+                                </div>
 
                             </form>
                         </div>
