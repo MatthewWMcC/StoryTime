@@ -17,7 +17,6 @@ class StartScreen extends Component {
         }
         this.submitNew = this.submitNew.bind(this);
         this.submitLogin = this.submitLogin.bind(this);
-
     }
 
     submitNew(e) {
