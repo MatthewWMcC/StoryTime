@@ -136,7 +136,7 @@ class StartScreen extends Component {
                                 </div>
                                 <div className="row justify-content-center">
                                     <button className="btn btn-dark" type="submit">
-                                        <span>Sign Up</span>
+                                        <span>SignUp</span>
                                     </button>
                                 </div>
 
