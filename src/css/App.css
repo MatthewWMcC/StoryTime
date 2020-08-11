@@ -53,7 +53,8 @@
 }
 
 .login_line{
-  background: linear-gradient(#000, #000) no-repeat center/2px 100%;
+  background: linear-gradient(#000, #000) no-repeat center/2px 75%;
+  
 }
 
 .vl {

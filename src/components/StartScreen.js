@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import '../css/App.css';
 import axios from 'axios';
 import Header from './Header'
+import { FaArrowRight } from 'react-icons/fa';
 
 class StartScreen extends Component {
     constructor(props) {
@@ -136,14 +137,17 @@ class StartScreen extends Component {
                                 </div>
                                 <div className="row justify-content-center">
                                     <button className="btn btn-dark" type="submit">
-                                        <span>SignUp</span>
+                                        <span>Sign Up</span>
                                     </button>
                                 </div>
 
 
                             </form>
                         </div>
-                        <div className="offset-2 col-5">
+                        <div className="col-2">
+                            <h2><FaArrowRight /></h2>
+                        </div>
+                        <div className="col-5">
                             <h2 className="">Login</h2>
                             <form onSubmit={this.submitLogin}>
                                 <div className="row my-5">
