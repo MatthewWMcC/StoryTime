@@ -5,7 +5,6 @@ import moment from 'moment'
 import { isEmpty } from 'lodash';
 import TimeFormatSub from './TimeFormat'
 import { sendPost } from './sendPost'
-//import { without } from 'lodash';
 
 class AddEntry extends Component {
     constructor(props) {
@@ -182,8 +181,6 @@ class AddEntry extends Component {
                                 </span>
                             ))}
 
-                            {/* <ButtonLine /> */}
-
                         </div>
                         <div className="row py-2">
                             <div className="col-2">
@@ -219,7 +216,6 @@ class AddEntry extends Component {
                                         type="checkbox"
                                         id="publicCheck"
                                         onChange={this.toggleCheckbox}
-                                    // onChange={this.doChange}
                                     ></input>
                                     <label className="mx-2 my-2">Make Post Public</label>
                                     <button className="btn btn-danger offset-1" type="submit">Submit</button>

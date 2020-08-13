@@ -26,7 +26,6 @@ class Home extends Component {
     }
 
     this.addBook = this.addBook.bind(this);
-
     this.changeBookLog = this.changeBookLog.bind(this);
     this.removeBook = this.removeBook.bind(this);
     this.postNewShelf = this.postNewShelf.bind(this);
@@ -37,27 +36,23 @@ class Home extends Component {
     if (this.state.pageId === '') {
       window.location = '/'
     }
-    //console.log(moment().format('YYYY-MM-DD hh:mm').toString())
 
-    axios.get(`http://storytime-matt.herokuapp.com/home/${this.state.pageId}`)
+    axios.get(`http://storytime-matt.herokuapp.com/home/${this.state.pageId}`) //retrieves account data before load
       .then(res => {
-        //console.log(res.data);
         this.setState({
           bookshelf: res.data.Shelf,
-          nickname: res.data.nickname
+          nickname: res.data.nickname,
+          LogedIn: true
         })
       }).catch((error) => {
         console.log(error);
       })
-    this.setState({
-      LogedIn: true
-    })
+
   }
 
   addBook(Book) {
     let tempShelf = this.state.bookshelf;
     tempShelf.unshift(Book);
-
     this.setState({
       bookshelf: tempShelf
     })
@@ -83,7 +78,7 @@ class Home extends Component {
     this.postNewShelf(tempShelf);
   }
 
-  switch(homeState, info) {
+  switch(homeState, info) { //handles the 3 different home screen components
     if (this.state.toggleMain === false) {
       this.setState({
         toggleMain: true,
@@ -129,40 +124,46 @@ class Home extends Component {
           <div className="container">
             <div className="row">
               <div className="col">
-                <div className="container">
+                {!this.state.LogedIn ?
                   <div>
-
-                    {this.state.toggleAdditional ? <AddEntry
-                      book={this.state.newEntryBook}
-                      changeBookLog={this.changeBookLog}
-                      switch={this.switch}
-                      nickname={this.state.nickname}
-                    /> : ''}
-
+                    <br></br>
+                    <br></br>
+                    <h1 className="text-dark">Loading...</h1>
                   </div>
-                  <h1>{this.props.id}</h1>
-                  <div>
-                    {this.state.toggleProfile ?
-                      <Profile
-                        book={this.state.profileBook}
+                  :
+                  <div className="container">
+                    <div>
+
+                      {this.state.toggleAdditional ? <AddEntry
+                        book={this.state.newEntryBook}
+                        changeBookLog={this.changeBookLog}
                         switch={this.switch}
-                      /> :
-                      ''}
-                  </div>
-                  <div className={this.state.toggleMain ? '' : 'd-none'}>
-                    <AddBooks
-                      addBook={this.addBook}
-                      nickname={this.state.nickname}
-                    />
-                    <DisplayBooks
-                      bookshelf={this.state.bookshelf}
-                      removeBook={this.removeBook}
-                      switch={this.switch}
+                        nickname={this.state.nickname}
+                      /> : ''}
 
-                    />
+                    </div>
+                    <div>
+                      {this.state.toggleProfile ?
+                        <Profile
+                          book={this.state.profileBook}
+                          switch={this.switch}
+                        /> :
+                        ''}
+                    </div>
+                    <div className={this.state.toggleMain ? '' : 'd-none'}>
+                      <AddBooks
+                        addBook={this.addBook}
+                        nickname={this.state.nickname}
+                      />
+                      <DisplayBooks
+                        bookshelf={this.state.bookshelf}
+                        removeBook={this.removeBook}
+                        switch={this.switch}
 
-                  </div>
-                </div>
+                      />
+
+                    </div>
+                  </div>}
               </div>
             </div>
           </div>

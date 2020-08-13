@@ -4,13 +4,8 @@ import Book from './Book.js'
 
 class DisplayBooks extends Component {
 
-    // addEntry(book) {
-    //     console.log(book)
-    //     //this.props.addEntry3(book);
-    // }
-
+    //class to render the library
     render() {
-        //console.log(this.props)
         return (
             <div className="card bg-dark mb-5 mt-4">
                 <div className="card-header">

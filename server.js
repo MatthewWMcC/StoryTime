@@ -2,7 +2,6 @@ let express = require('express');
 let mongoose = require('mongoose');
 let cors = require('cors');
 let bodyParser = require('body-parser');
-//let database = require('./database/db').db;
 const path = require('path');
 
 require('dotenv').config();
@@ -13,7 +12,7 @@ const { support } = require('jquery');
 
 
 mongoose.Promise = global.Promise;
-mongoose.connect(process.env.mongoUI || database, {
+mongoose.connect(process.env.mongoUI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }).then(() => {
@@ -32,11 +31,7 @@ app.use(bodyParser.urlencoded({
 app.use(cors());
 app.use('/home', userRoute);
 
-
-
-const port = process.env.PORT || 4000;
-
-//console.log(process.env.NODE_ENV)
+const port = process.env.PORT || 4000; //setting port for dev or production
 
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, 'build')));
@@ -46,8 +41,6 @@ if (process.env.NODE_ENV === 'production') {
     });
 
 }
-
-
 
 const server = app.listen(port, () => {
     console.log('Connected to port ' + port)

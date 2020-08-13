@@ -52,14 +52,14 @@ class AddBooks extends Component {
         }
 
         const { errors, isValid } = errorCatch(Book, this.state.sTime, this.state.eTime);
-
+        //book is invalid, return the error messages
         if (!isValid) {
             this.setState({
                 errors: errors
             })
             return;
         }
-
+        //user wants post to be public, send it to the post function
         if (this.state.publicPost) {
             let post = {
                 title: this.state.title,
@@ -74,6 +74,7 @@ class AddBooks extends Component {
             sendPost(post);
         }
         this.props.addBook(Book)
+        //clear all form fields
         this.setState({
             showForm: false,
             title: '',
@@ -91,6 +92,7 @@ class AddBooks extends Component {
     }
 
     doChange(e) {
+        //update state with field change
         const target = e.target;
         const value = target.value;
         const name = target.name;
@@ -98,7 +100,6 @@ class AddBooks extends Component {
         this.setState({
             [name]: value
         })
-        //console.log(document.getElementsByName('publicPage').value)
 
     }
     toggleCheckbox() {

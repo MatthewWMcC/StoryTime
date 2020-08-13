@@ -10,11 +10,10 @@ let postSchema = require('../models/postSchema')
 const { isEmpty } = require('lodash');
 
 router.post("/signup", (req, res) => {
-    //Function here
     user.findOne({ email: req.body.email }).then(response => {
         user.findOne({ nickname: req.body.nickname }).then(response2 => {
             const { errors, isValid } = validateReg(req.body);
-
+            //return invalid messages
             if (!isValid) {
                 return res.send({ errors });
             }
@@ -35,7 +34,7 @@ router.post("/signup", (req, res) => {
                     ShelfId: new ObjectId()
                 });
                 bcrypt.genSalt(10, (err, salt) => {
-                    bcrypt.hash(newUser.password, salt, (err, hash) => {
+                    bcrypt.hash(newUser.password, salt, (err, hash) => {//hash password
                         newUser.password = hash;
                         newUser.save().then(
                             res.send(newUser)
@@ -43,7 +42,7 @@ router.post("/signup", (req, res) => {
                     })
                 })
 
-                let shelf = new ShelfSchema({
+                let shelf = new ShelfSchema({ //create empty shelf for new user
                     _id: newUser.ShelfId,
                     nickname: newUser.nickname
                 })
@@ -72,12 +71,6 @@ router.post('/login', (req, res) => {
                                 token: account._id
                             })
                         })
-
-                        // res.json({
-                        //     // r: response.nickname,
-                        //     // id: response.id,
-                        //     // p: response.password
-                        // })
                     } else {
                         errors.password = "incorrect password"
                         return res
@@ -90,21 +83,10 @@ router.post('/login', (req, res) => {
     })
 })
 
-// router.route('/create').post((req, res, next) => {
-//     user.create(req.body, (error, data) => {
-//         if (error) {
-//             return next(error)
-//         } else {
-//             console.log(data)
-//             res.json(data)
-//         }
-//     })
-// });
-
 router.post('/public', (req, res) => {
     postSchema.create(req.body, (error, data) => {
         if (error) {
-            return error
+            res.send({ error })
         } else {
             res.send(data)
         }
@@ -113,7 +95,10 @@ router.post('/public', (req, res) => {
 })
 
 router.get('/posts', (req, res) => {
-    postSchema.find({}).then(data => {
+    postSchema.find({}, error).then(data => {
+        if (!data) {
+            return res.send({ error: "No data found with that id" })
+        }
         return res.send(data)
     })
 
@@ -121,6 +106,9 @@ router.get('/posts', (req, res) => {
 
 router.get('/:id', (req, res) => {
     ShelfSchema.findOne({ _id: req.params.id }).then(data => {
+        if (!data) {
+            return res.send({ error: "No data found with that id" })
+        }
         return res.send({
             nickname: data.nickname,
             Shelf: data.Shelf
@@ -173,34 +161,6 @@ router.put('/posts/update/likes/:id', (req, res) => {
     })
 })
 
-// router.route('/edit/:id').get((req, res) => {
-//     user.findById(req.params.id, (error, data) => {
-//         if (error) {
-//             return next(error)
-//         } else {
-//             res.json(data)
-//         }
-//     })
-// })
-
-
-// // Update Student
-// router.route('/update/:id').put((req, res, next) => {
-//     user.findByIdAndUpdate(req.params.id, {
-//         $set: req.body
-//     }, (error, data) => {
-//         if (error) {
-//             return next(error);
-//             console.log(error)
-//         } else {
-//             res.json(data)
-//             console.log('User updated successfully !')
-//         }
-//     })
-// })
-function validateLogin() {
-
-}
 function validateReg(data) {
     let errors = {}
     if (data.email === "") {

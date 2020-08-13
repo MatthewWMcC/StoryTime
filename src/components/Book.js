@@ -5,11 +5,7 @@ import { FaTrash } from 'react-icons/fa'
 
 class Book extends Component {
 
-
-
-    addEntry(book) {
-        this.props.addEntry(book);
-    }
+    //class to render each book object in the library
 
     render() {
         // const title = this.props.book.title

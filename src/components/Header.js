@@ -7,7 +7,6 @@ class Header extends Component {
     render() {
         return (
             <header className="container text-dark">
-
                 <div className="row">
                     {this.props.LogedIn ?
                         <div className="col-3">
@@ -57,11 +56,9 @@ class Header extends Component {
 
 function closeBar() {
     document.getElementById("mySidebar").style.display = "none";
-    //document.getElementById("homer").style.marginLeft = 0;
 }
 function openBar() {
     document.getElementById("mySidebar").style.display = "table-row";
-    //document.getElementById("homer").style.marginLeft = 300;
 }
 
 

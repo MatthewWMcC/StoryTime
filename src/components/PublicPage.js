@@ -23,7 +23,6 @@ export default class PublicPage extends Component {
         }
         axios.get(`http://storytime-matt.herokuapp.com/home/${this.state.pageId}`)
             .then(res => {
-                //console.log(res.data);
                 this.setState({
                     nickname: res.data.nickname,
                     LogedIn: true
@@ -88,61 +87,67 @@ export default class PublicPage extends Component {
                 <main className="bg-dark base">
                     <div className="container">
                         <div className="row">
-                            <div className="col">
-                                <h5 className="text-light my-3">Look around to see others thoughts about what they are reading but be weary of spoilers!</h5>
-                                {this.state.postLog.map((post, key) => {
+                            {!this.state.LogedIn ?
+                                <div className="col">
+                                    <br></br>
+                                    <br></br>
+                                    <h1>Loading...</h1>
+                                </div> :
+                                <div className="col">
+                                    <h5 className="text-light my-3">Look around to see others thoughts about what they are reading but be weary of spoilers!</h5>
+                                    {this.state.postLog.map((post, key) => {
 
-                                    return <div className="row" key={key}>
-                                        <div className="col-10 offset-1">
-                                            <div className="card bg-dark my-3">
-                                                <div className="card-header text-light">
-                                                    <label className="float-left"><b>{post.nickname}</b> posted after reading <b>{post.title}</b> by <b>{post.author}</b></label>
-                                                    <h6 className="float-right">{post.dateOfPost}</h6>
-                                                </div>
-                                                <div style={{ background: `rgb(${post.rgb.r},${post.rgb.g},${post.rgb.b})` }} className="card-body">
-                                                    <div className="row">
-                                                        <label className="float-left text-dark">{post.note}</label>
+                                        return <div className="row" key={key}>
+                                            <div className="col-10 offset-1">
+                                                <div className="card bg-dark my-3">
+                                                    <div className="card-header text-light">
+                                                        <label className="float-left"><b>{post.nickname}</b> posted after reading <b>{post.title}</b> by <b>{post.author}</b></label>
+                                                        <h6 className="float-right">{post.dateOfPost}</h6>
                                                     </div>
-                                                    <div>
-                                                        <div className="row mt-5">
-                                                            <div className="col-3">
-                                                                <label className="">Rating: <b>{post.rating}/10</b></label>
-                                                            </div>
-                                                            <div className="vl"></div>
-                                                            <div className="col-3">
-                                                                <label>From page <b>{post.start}</b></label>
-                                                            </div>
-                                                            <div className="vl"></div>
+                                                    <div style={{ background: `rgb(${post.rgb.r},${post.rgb.g},${post.rgb.b})` }} className="card-body">
+                                                        <div className="row">
+                                                            <label className="float-left text-dark">{post.note}</label>
+                                                        </div>
+                                                        <div>
+                                                            <div className="row mt-5">
+                                                                <div className="col-3">
+                                                                    <label className="">Rating: <b>{post.rating}/10</b></label>
+                                                                </div>
+                                                                <div className="vl"></div>
+                                                                <div className="col-3">
+                                                                    <label>From page <b>{post.start}</b></label>
+                                                                </div>
+                                                                <div className="vl"></div>
 
-                                                            <div className="col-3">
-                                                                <label>To page <b>{post.end}</b></label>
-                                                            </div>
-                                                            <div className="vl"></div>
+                                                                <div className="col-3">
+                                                                    <label>To page <b>{post.end}</b></label>
+                                                                </div>
+                                                                <div className="vl"></div>
 
-                                                            <div className="col-3">
-                                                                <label>Likes: <b>{post.likes.length}</b></label>
+                                                                <div className="col-3">
+                                                                    <label>Likes: <b>{post.likes.length}</b></label>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div className="col-1">
-                                            <button className={'btn text-white my-4 ' +
-                                                (post.likes.includes(this.state.nickname) ? 'bg-dark' : 'buttonsecondary')}
-                                                onClick={() => {
-                                                    this.onLike(post)
-                                                }}
-                                            ><FaHeart /></button>
-                                            {post.nickname === this.state.nickname ? <button className="btn btn-danger mt-3 mb-2"
-                                                onClick={() => this.removePost(post)}
-                                            ><FaTrash /></button> : ''}
-                                        </div>
+                                            <div className="col-1">
+                                                <button className={'btn text-white my-4 ' +
+                                                    (post.likes.includes(this.state.nickname) ? 'bg-dark' : 'buttonsecondary')}
+                                                    onClick={() => {
+                                                        this.onLike(post)
+                                                    }}
+                                                ><FaHeart /></button>
+                                                {post.nickname === this.state.nickname ? <button className="btn btn-danger mt-3 mb-2"
+                                                    onClick={() => this.removePost(post)}
+                                                ><FaTrash /></button> : ''}
+                                            </div>
 
 
-                                    </div>
-                                })}
-                            </div>
+                                        </div>
+                                    })}
+                                </div>}
                         </div>
 
                     </div>

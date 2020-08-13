@@ -40,8 +40,6 @@ class StartScreen extends Component {
                     })
                     return
                 }
-                //console.log("success")
-                //console.log(userFile._id)
             }).catch((error) => {
                 console.log(error);
             })
@@ -72,14 +70,9 @@ class StartScreen extends Component {
                 }
                 this.props.setId(res.data.token)
             })
-
             .catch((error) => {
                 console.log(error);
             })
-        this.setState({
-            LEmail: '',
-            LPassword: ''
-        })
 
     }
     render() {
