@@ -13,9 +13,13 @@ export default class PublicPage extends Component {
             nickname: '',
             pageId: this.props.pageId || '',
             LogedIn: false,
-            postLog: []
+            postLog: [],
+            searchPhrase: '',
+            searchBy: 'title'
         }
         this.onLike = this.onLike.bind(this);
+        this.removePost = this.removePost.bind(this);
+        this.onSearchChange = this.onSearchChange.bind(this);
     }
     componentDidMount() {
         if (this.state.pageId === '') {
@@ -35,7 +39,9 @@ export default class PublicPage extends Component {
                 this.setState({
                     postLog: res.data.reverse()
                 })
-            })
+            }).catch(err => {
+                console.log(err)
+            });
 
 
     }
@@ -72,7 +78,31 @@ export default class PublicPage extends Component {
             });
         this.forceUpdate()
     }
+    onSearchChange(e) {
+        let target = e.target
+        let value = target.value
+        this.setState({
+            searchPhrase: value
+        })
+    }
+    setSearch(searchBy) {
+        this.setState({
+            searchBy: searchBy
+        })
+    }
     render() {
+        let filteredPosts = this.state.postLog;
+
+        filteredPosts = filteredPosts.filter(post => {
+            if (this.state.searchBy === 'all') {
+                console.log(post.title);
+                return (post['title'].toLowerCase().includes(this.state.searchPhrase.toLowerCase()) ||
+                    post['author'].toLowerCase().includes(this.state.searchPhrase.toLowerCase()) ||
+                    post['nickname'].toLowerCase().includes(this.state.searchPhrase.toLowerCase()) ||
+                    post['note'].toLowerCase().includes(this.state.searchPhrase.toLowerCase()))
+            }
+            return post[this.state.searchBy].toLowerCase().includes(this.state.searchPhrase.toLowerCase())
+        })
 
         return (
             <div>
@@ -95,7 +125,60 @@ export default class PublicPage extends Component {
                                 </div> :
                                 <div className="col">
                                     <h5 className="text-light my-3">Look around to see others thoughts about what they are reading but be weary of spoilers!</h5>
-                                    {this.state.postLog.map((post, key) => {
+                                    <div className="row">
+                                        <div className="col">
+                                            <div className="input-group justify-content-center">
+                                                <input
+                                                    className="col-6 form-control"
+                                                    placeholder="Search by keyphrase"
+                                                    value={this.state.SearchPhrase}
+                                                    onChange={this.onSearchChange}
+                                                    type="text"
+                                                    aria-label="Search Posts"
+                                                />
+                                                <div className="input-group-append">
+                                                    <button
+                                                        type="button"
+                                                        className="btn btn-primary dropdown-toggle"
+                                                        data-toggle="dropdown"
+                                                        aria-haspopup="true"
+                                                        aria-expanded="false"
+                                                    >Search By: </button>
+                                                    <div className="dropdown-menu">
+                                                        <button className={"dropdown-item " + (this.state.searchBy === 'title' ? "active" : '')}
+                                                            onClick={(e) => this.setSearch('title')}
+                                                        >
+                                                            Title
+                                                        </button>
+                                                        <button className={"dropdown-item " + (this.state.searchBy === 'author' ? "active" : '')}
+                                                            onClick={(e) => this.setSearch('author')}
+                                                        >
+                                                            Author
+                                                        </button>
+                                                        <button className={"dropdown-item " + (this.state.searchBy === 'nickname' ? "active" : '')}
+                                                            onClick={(e) => this.setSearch('nickname')}
+                                                        >
+                                                            Nickname
+                                                        </button>
+                                                        <button className={"dropdown-item " + (this.state.searchBy === 'note' ? "active" : '')}
+                                                            onClick={(e) => this.setSearch('note')}
+                                                        >
+                                                            Post
+                                                        </button>
+                                                        <button className={"dropdown-item " + (this.state.searchBy === 'all' ? "active" : '')}
+                                                            onClick={(e) => this.setSearch('all')}
+                                                        >
+                                                            All
+                                                        </button>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                    {filteredPosts.map((post, key) => {
 
                                         return <div className="row" key={key}>
                                             <div className="col-10 offset-1">
