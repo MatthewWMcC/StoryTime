@@ -95,7 +95,7 @@ router.post('/public', (req, res) => {
 })
 
 router.get('/posts', (req, res) => {
-    postSchema.find({}, error).then(data => {
+    postSchema.find({}).then(data => {
         if (!data) {
             return res.send({ error: "No data found with that id" })
         }

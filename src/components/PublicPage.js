@@ -91,6 +91,7 @@ export default class PublicPage extends Component {
         })
     }
     render() {
+        // console.log(this.state.postLog)
         let filteredPosts = this.state.postLog;
 
         filteredPosts = filteredPosts.filter(post => {
