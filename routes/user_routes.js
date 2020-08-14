@@ -161,6 +161,21 @@ router.put('/posts/update/likes/:id', (req, res) => {
     })
 })
 
+router.put('/posts/comments/:id', (req, res) => {
+    postSchema.findByIdAndUpdate(req.params.id, {
+        $push: { 'comments': req.body }
+    }, (error, data) => {
+        if (error) {
+            console.log(error)
+            return next(error);
+
+        } else {
+            res.json(data)
+            console.log('Post updated successfully !')
+        }
+    })
+})
+
 function validateReg(data) {
     let errors = {}
     if (data.email === "") {

@@ -4,7 +4,10 @@ import Header from './Header'
 import axios from 'axios'
 import { FaTrash } from 'react-icons/fa'
 import { FaHeart } from 'react-icons/fa';
+import { FaArrowDown } from 'react-icons/fa'
+import { FaArrowUp } from 'react-icons/fa'
 import { without } from 'lodash'
+import Comments from './Comments'
 
 export default class PublicPage extends Component {
     constructor(props) {
@@ -209,11 +212,28 @@ export default class PublicPage extends Component {
                                                                 <div className="vl"></div>
 
                                                                 <div className="col-3">
-                                                                    <label>Likes: <b>{post.likes.length}</b></label>
+                                                                    <button className="btn buttonsecondary"
+                                                                        onClick={() => {
+                                                                            (post.show === true) ? post.show = false : post.show = true
+                                                                            this.forceUpdate();
+                                                                        }}
+                                                                    >Comments {post.show ? <FaArrowUp /> : <FaArrowDown />}</button>
                                                                 </div>
+
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    {!post.show ?
+                                                        ''
+                                                        :
+
+                                                        <div style={{ background: `rgb(${post.rgb.r - 50},${post.rgb.g - 50},${post.rgb.b - 50})` }} className="card-body">
+                                                            <Comments
+                                                                post={post}
+                                                                nickname={this.state.nickname}
+                                                            />
+                                                        </div>
+                                                    }
                                                 </div>
                                             </div>
                                             <div className="col-1">
@@ -222,7 +242,7 @@ export default class PublicPage extends Component {
                                                     onClick={() => {
                                                         this.onLike(post)
                                                     }}
-                                                ><FaHeart /></button>
+                                                ><FaHeart /> {post.likes.length}</button>
                                                 {post.nickname === this.state.nickname ? <button className="btn btn-danger mt-3 mb-2"
                                                     onClick={() => this.removePost(post)}
                                                 ><FaTrash /></button> : ''}

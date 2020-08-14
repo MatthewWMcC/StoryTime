@@ -55,7 +55,25 @@ let postSchema = new Schema({
     likes: {
         type: [],
         default: []
-    }
+    },
+    comments: {
+        type: [{
+            nickname: {
+                type: String,
+                default: ''
+            },
+            comment: {
+                type: String,
+                default: ''
+            },
+            date: {
+                type: String,
+                default: Date.now().toString()
+            }
+        }],
+        default: []
+
+    },
 
 }, { collection: 'Posts' })
 
