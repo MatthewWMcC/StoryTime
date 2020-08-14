@@ -68,7 +68,7 @@ let postSchema = new Schema({
             },
             date: {
                 type: String,
-                default: Date.now().toString()
+                default: Date.now()
             }
         }],
         default: []

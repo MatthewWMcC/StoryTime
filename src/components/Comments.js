@@ -1,16 +1,19 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import moment from 'moment'
 
 export default class Comments extends Component {
     constructor(props) {
         super(props)
         this.state = {
             commentVal: '',
-            post: this.props.post
+            post: this.props.post,
+            commentlist: this.props.post.comments.reverse()
         }
 
         this.onChange = this.onChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
+
     }
 
     onChange(e) {
@@ -25,7 +28,7 @@ export default class Comments extends Component {
         let com = {
             nickname: nickname,
             comment: this.state.commentVal,
-            date: Date.now().toString()
+            date: moment().format('YYYY-MM-DD hh:mma').toString()
         }
         tempComments.unshift(com);
         this.setState({
@@ -63,7 +66,7 @@ export default class Comments extends Component {
                 </form>
                 <div className="row">
                     <div className="col">
-                        {this.state.post.comments.map((comment, key) => {
+                        {this.state.commentlist.map((comment, key) => {
                             return (
                                 <div key={key} className="row">
                                     <div className="col">
